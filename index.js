@@ -16,4 +16,10 @@ app.get('/api/os-info', (req, res) => {
     res.json(osInfo);
 });
 
+app.get('/ip', (req, res) => {
+  const forwardedIps = req.headers['x-forwarded-for'];
+  const ip = forwardedIps ? forwardedIps.split(',')[0] : req.connection.remoteAddress;
+  res.send(`Your IP address is: ${ip}`);
+});
+
 app.listen(3000, () => console.log('Server running on port 3000'));
